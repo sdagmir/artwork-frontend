@@ -1,0 +1,1 @@
+{"name":"История Живописи","short_name":"Живопись","start_url":"/artworks-frontend","display":"standalone","background_color":"#2B1E11","lang":"en","scope":"/artworks-frontend/","theme_color":"#A26907","orientation":"portrait-primary","icons":[{"src":"icon192.png","type":"image/png","sizes":"192x192"},{"src":"icon512.png","type":"image/png","sizes":"512x512","purpose":"any"}]}
