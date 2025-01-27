@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { ICartProps } from './typing';
 import './Cart.css';
 import { Link } from "react-router-dom";
+import cartImage from "/images/cart.png";
 
 export const Cart: FC<ICartProps> = ({ itemsInCart }) => {
   console.log("Количество товаров в корзине:", itemsInCart);
@@ -18,7 +19,7 @@ export const Cart: FC<ICartProps> = ({ itemsInCart }) => {
         onClick={(e) => e.preventDefault()} // Отключает действие ссылки
       >
         <img
-          src="/cart.png"
+          src={cartImage}
           alt="Basket Icon"
           className="cart-icon"
         />

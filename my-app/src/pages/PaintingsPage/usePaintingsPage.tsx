@@ -3,12 +3,15 @@ import { ChangeEvent } from "../../App.typing.tsx";
 import { paintingList as PAINTINGS_LIST_MOCK} from "../../core/mock/chemicalElementList.ts";
 import { IPaintingDetail } from "../../core/api/service/typing.ts";
 import { getPaintingsList } from "../../core/api/service/index.ts";
+import { useAppSelector, useAppDispatch } from '../../core/store/hooks.ts';
+import { setSearchTerm } from '../../core/store/slices/searchSlice.ts';
 
 export const useChemicalCatalogPage = () => {
+    const dispatch = useAppDispatch();
+    const { searchTerm } = useAppSelector((state) => state.search);
     const [paintingsList, setPaintingsList] = useState<IPaintingDetail[]>([])
     const [expertiseId, setExpertiseId] = useState<number>(0);
     const [itemsInCart, setItemsInCart] = useState<number>(0);
-    const [searchPaintingTitle, setSearchPaintingTitle] = useState("");
 
     const fetchPaintings = (title?: string) => {
         getPaintingsList(title)
@@ -30,23 +33,25 @@ export const useChemicalCatalogPage = () => {
         });
     };
 
-    const handleSearchPaintingClick = () => {
-        fetchPaintings(searchPaintingTitle);
+    const handleSearchPaintingsClick = () => {
+        fetchPaintings(searchTerm);
     };
 
     const handleSearchTitleChange = (e: ChangeEvent) => {
-        setSearchPaintingTitle(e.target.value);
+        const newSearchTerm = e.target.value;
+        dispatch(setSearchTerm(newSearchTerm));
     };
 
     useEffect(() => {
-        fetchPaintings();
+        fetchPaintings(searchTerm);
     }, []);
 
     return {
         paintingsList,
         expertiseId,
         itemsInCart,
-        handleSearchPaintingClick,
+        searchTerm,
         handleSearchTitleChange,
+        handleSearchPaintingsClick,
     };
 };

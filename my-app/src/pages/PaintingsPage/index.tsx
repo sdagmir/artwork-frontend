@@ -11,7 +11,8 @@ export const PaintingsPage: FC = () => {
     paintingsList,
     expertiseId,
     itemsInCart,
-    handleSearchPaintingClick,
+    searchTerm,
+    handleSearchPaintingsClick,
     handleSearchTitleChange,
   } = useChemicalCatalogPage();
 
@@ -31,11 +32,13 @@ export const PaintingsPage: FC = () => {
               onChange={handleSearchTitleChange}
               placeholder="Поиск картины"
               aria-label="Поиск"
+              value={searchTerm}
+              style={{ width: '100%' }}
             />
           </div>
           <div>
             <Button
-              onClick={handleSearchPaintingClick}
+              onClick={handleSearchPaintingsClick}
               className="btn btn-secondary ml-3 mr-3"
             >
               Искать

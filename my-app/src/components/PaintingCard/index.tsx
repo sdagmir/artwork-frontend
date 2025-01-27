@@ -3,6 +3,7 @@ import { IPaintingProps } from "./typing";
 import { Card } from "react-bootstrap";
 import "./PaintingCard.css";
 import { Link } from "react-router-dom";
+import placeholderImage from "/images/image_placeholder.jpg";
 
 export const PaintingCard: FC<IPaintingProps> = (paintingCard: IPaintingProps) => {
   return (
@@ -14,7 +15,7 @@ export const PaintingCard: FC<IPaintingProps> = (paintingCard: IPaintingProps) =
           className="provider-card-img"
           alt={paintingCard.title}
           onError={(e) => {
-            (e.target as HTMLImageElement).src = '/image_placeholder.jpg';
+            (e.target as HTMLImageElement).src = placeholderImage;
           }}
         />
       </Link>

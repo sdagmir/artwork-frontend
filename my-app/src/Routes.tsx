@@ -1,7 +1,7 @@
 import {RouteObject, useRoutes} from "react-router-dom";
 import { MainPage } from "./pages/MainPage";
 import { PaintingsPage } from "./pages/PaintingsPage";
-import PaintingDetailsPage from "./pages/ChemicalElementPage";
+import PaintingDetailsPage from "./pages/PaintingDetailPage";
 
 
 export const AppRoutes = () => {

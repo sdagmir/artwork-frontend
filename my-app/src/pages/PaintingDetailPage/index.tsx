@@ -6,8 +6,9 @@ import { IPaintingDetail } from "../../core/api/service/typing";
 import { getPaintingById } from "../../core/api/service";
 import { paintingList as PAINTINGS_LIST_MOCK } from "../../core/mock/chemicalElementList";
 import { Breadcrumbs } from "../../components/BreadCrumbs";
+import placeholderImage from "/images/image_placeholder.jpg";
 
-export const ChemicalElementPage: FC = () => {
+export const PaintingDetailPage: FC = () => {
     const { id } = useParams();
     const [paintingDetailData, setPaintingDetailData] = useState<IPaintingDetail | null>(null);
 
@@ -52,10 +53,10 @@ export const ChemicalElementPage: FC = () => {
 
             <Container
                 fluid
-                className="mt-5 pb-4 d-flex flex-column align-items-center mx-auto"
+                className="mt-5 pb-4 d-flex flex-column align-items-center mx-auto px-3"
             >
                 <Card
-                    className="col-5 rounded-4 shadow-sm"
+                    className="col-12 col-md-8 col-lg-6 rounded-4 shadow-sm"
                     style={{
                         overflow: "hidden",
                         border: "3px solid #F4F4F4",
@@ -66,13 +67,17 @@ export const ChemicalElementPage: FC = () => {
                         src={paintingDetailData.img_path}
                         style={{
                             width: "100%",
-                            height: "400px",
+                            height: "auto",
                             objectFit: "cover",
+                            maxHeight: "400px",
+                        }}
+                        onError={(e) => {
+                            (e.target as HTMLImageElement).src = placeholderImage;
                         }}
                     />
-                    <Card.Body className="d-flex flex-column">
+                    <Card.Body className="d-flex flex-column p-3 p-md-4">
                         <Card.Title
-                            className="text-center fw-bold"
+                            className="text-center text-md-start fw-bold"
                             style={{
                                 color: "#A26907",
                                 fontSize: "1.8rem",
@@ -81,7 +86,7 @@ export const ChemicalElementPage: FC = () => {
                             {paintingDetailData.title}
                         </Card.Title>
                         <Card.Text
-                            className="fw-medium mb-4"
+                            className="fw-medium mb-4 text-center text-md-start"
                             style={{
                                 color: "#333333",
                                 fontSize: "1rem",
@@ -91,9 +96,9 @@ export const ChemicalElementPage: FC = () => {
                                 __html: paintingDetailData.description,
                             }}
                         ></Card.Text>
-                        <div className="mt-auto d-flex justify-content-between">
+                        <div className="mt-auto d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
                             <Button
-                                className="w-100 btn-lg"
+                                className="btn-lg w-100 w-md-50"
                                 style={{
                                     transition: "transform 0.3s ease, background-color 0.3s ease",
                                     backgroundColor: "#A26907",
@@ -101,12 +106,10 @@ export const ChemicalElementPage: FC = () => {
                                     color: "#ffffff",
                                 }}
                                 onMouseEnter={(e) =>
-                                    (e.currentTarget.style.backgroundColor =
-                                        "#824F23")
+                                    (e.currentTarget.style.backgroundColor = "#824F23")
                                 }
                                 onMouseLeave={(e) =>
-                                    (e.currentTarget.style.backgroundColor =
-                                        "#A26907")
+                                    (e.currentTarget.style.backgroundColor = "#A26907")
                                 }
                             >
                                 Добавить
@@ -119,5 +122,4 @@ export const ChemicalElementPage: FC = () => {
     );
 };
 
-export default ChemicalElementPage;
-
+export default PaintingDetailPage;

@@ -2,6 +2,7 @@ import { FC } from "react";
 import { Navbar as NavbarComp, Container, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
+import logoImage from "/icon.png";
 
 export const Navbar: FC = () => {
   return (
@@ -10,7 +11,7 @@ export const Navbar: FC = () => {
         {/* Логотип */}
         <NavbarComp.Brand className="d-flex align-items-center">
           <Link to="/" className="navbar-brand d-flex align-items-center">
-            <img src="/icon.png" alt="Logo" className="navbar-logo me-2" />
+            <img src={logoImage} alt="Logo" className="navbar-logo me-2" />
             <div className="brand-info">
               <h1 className="brand-name">ИСТОРИЯ ЖИВОПИСИ</h1>
               <p className="brand-description">Картины для экспертизы</p>
