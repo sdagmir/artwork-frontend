@@ -1,0 +1,83 @@
+.navbar-bg {
+  background-color: #2b1e11; /* Цвет хедера */
+  padding: 10px 20px;
+  position: sticky; /* Закрепление хедера */
+  top: 0;
+  z-index: 1000; /* Поверх контента */
+}
+
+.navbar-logo {
+  max-height: 60px;
+  padding: 5px;
+  border-radius: 4px;
+  background-color: transparent; /* Убираем фон у логотипа */
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.brand-info {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  text-align: left;
+}
+
+.brand-name {
+  font-size: 1.5rem;
+  color: #a26907; /* Цвет названия */
+  font-weight: bold;
+  margin: 0;
+}
+
+.brand-description {
+  font-size: 0.9rem;
+  color: rgb(155, 153, 153); /* Цвет описания */
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+.navbar-collapse {
+  justify-content: flex-end;
+}
+
+.nav-link-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+}
+
+.nav-link-services {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #a26907; /* Цвет ссылок */
+  text-decoration: none;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.nav-link-services:hover {
+  text-decoration: underline;
+  transform: scale(1.1);
+  color: #d48b39; /* Цвет при наведении */
+}
+
+@media (max-width: 768px) {
+  .navbar-logo {
+    max-height: 50px; /* Уменьшение логотипа */
+  }
+
+  .brand-info {
+    text-align: center;
+  }
+
+  .brand-name {
+    font-size: 1.3rem;
+  }
+
+  .brand-description {
+    font-size: 0.8rem;
+  }
+}

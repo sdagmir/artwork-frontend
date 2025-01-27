@@ -1,0 +1,33 @@
+.cart-container {
+  display: inline-block; /* Корзина занимает ровно столько места, сколько нужно */
+  position: relative; /* Для позиционирования счетчика */
+}
+
+.cart-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #000; /* Цвет текста */
+}
+
+.cart-icon {
+  width: 50px; /* Настройка размера иконки корзины */
+  height: auto;
+}
+
+.cart-counter {
+  position: absolute;
+  top: -7.5px; /* Подкорректированное положение сверху */
+  right: -7.5px; /* Подкорректированное положение справа */
+  background-color: #1a6e37; /* Более нейтральный серо-зеленый цвет для сочетания с корзиной */
+  color: #ffffff; /* Белый цвет текста */
+  border-radius: 70%; /* Делаем счетчик круглым */
+  padding: 3px 6px; /* Отступы для более аккуратного внешнего вида */
+  min-width: 25px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
