@@ -1,0 +1,48 @@
+{
+  "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
+  "productName": "my-app",
+  "version": "0.1.0",
+  "identifier": "com.sancho.myapp",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "https://192.168.0.105:3000/artwork-frontend",
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [
+      {
+        "title": "my-app",
+        "width": 1280,
+        "height": 720,
+        "resizable": true,
+        "fullscreen": false
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ]
+  },
+  "plugins": {
+		"fs": {
+			"scope": {
+				"allow": [
+					"http://192.168.0.105:8000/*",
+          "http://192.168.0.105:9000/*"
+				]
+			}
+		}
+	}
+}

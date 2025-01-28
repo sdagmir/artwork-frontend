@@ -5,6 +5,7 @@ import { PaintingCard } from '../../components/PaintingCard';
 import { FC } from 'react';
 import { Breadcrumbs } from '../../components/BreadCrumbs';
 import { useChemicalCatalogPage } from './usePaintingsPage';
+import { dest_img } from "../../../target_config";
 
 export const PaintingsPage: FC = () => {
   const {
@@ -15,6 +16,15 @@ export const PaintingsPage: FC = () => {
     handleSearchPaintingsClick,
     handleSearchTitleChange,
   } = useChemicalCatalogPage();
+
+  console.log('Original paintings list:', paintingsList);
+
+  const updatedPaintingsList = paintingsList.map((painting) => ({
+    ...painting,
+    img_path: `${dest_img}${painting.img_path}`,
+  }));
+
+  console.log('Updated paintings list:', updatedPaintingsList);
 
   return (
     <>
@@ -46,9 +56,9 @@ export const PaintingsPage: FC = () => {
           </div>
         </div>
         <Row xs={1} sm={1} lg={3} className="g-4 justify-content-start">
-          {paintingsList.map((paintingDetail) => (
-            <Col key={paintingDetail.id} className="d-flex align-items-stretch">
-              <PaintingCard key={paintingDetail.id} {...paintingDetail} />
+          {updatedPaintingsList.map((paintingDetail) => (
+            <Col key={paintingDetail.pk} className="d-flex align-items-stretch">
+              <PaintingCard key={paintingDetail.pk} {...paintingDetail} />
             </Col>
           ))}
         </Row>

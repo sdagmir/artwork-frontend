@@ -1,6 +1,8 @@
 import { IRequestOptions } from "./typing.ts";
 
-export const BASE_URL = "/api";
+import { dest_api } from "../../../target_config.ts"
+
+export const BASE_URL = dest_api;
 
 
 export const sendRequest = async (options: IRequestOptions) => {

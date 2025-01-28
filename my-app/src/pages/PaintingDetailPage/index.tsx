@@ -7,26 +7,27 @@ import { getPaintingById } from "../../core/api/service";
 import { paintingList as PAINTINGS_LIST_MOCK } from "../../core/mock/chemicalElementList";
 import { Breadcrumbs } from "../../components/BreadCrumbs";
 import placeholderImage from "/images/image_placeholder.jpg";
+import { dest_img } from "../../../target_config";
 
 export const PaintingDetailPage: FC = () => {
-    const { id } = useParams();
+    const { pk } = useParams();
     const [paintingDetailData, setPaintingDetailData] = useState<IPaintingDetail | null>(null);
 
     useEffect(() => {
-        if (id) {
-            getPaintingById(id)
+        if (pk) {
+            getPaintingById(pk)
                 .then((data) => {
                     console.log("Полученные данные:", data);
                     setPaintingDetailData(data);
                 })
                 .catch(() => {
                     const painting = PAINTINGS_LIST_MOCK.find(
-                        (element) => element.id === Number(id)
+                        (element) => element.pk === Number(pk)
                     );
                     setPaintingDetailData(painting || null);
                 });
         }
-    }, [id]);
+    }, [pk]);
 
     if (!paintingDetailData) {
         return (
@@ -64,7 +65,7 @@ export const PaintingDetailPage: FC = () => {
                 >
                     <Card.Img
                         variant="top"
-                        src={paintingDetailData.img_path}
+                        src={(dest_img + paintingDetailData.img_path) || placeholderImage}
                         style={{
                             width: "100%",
                             height: "auto",
@@ -72,8 +73,11 @@ export const PaintingDetailPage: FC = () => {
                             maxHeight: "400px",
                         }}
                         onError={(e) => {
-                            (e.target as HTMLImageElement).src = placeholderImage;
-                        }}
+                            const target = e.target as HTMLImageElement;
+                            if (target.src !== placeholderImage) {
+                              target.src = placeholderImage;
+                            }
+                          }}
                     />
                     <Card.Body className="d-flex flex-column p-3 p-md-4">
                         <Card.Title

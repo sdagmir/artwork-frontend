@@ -4,6 +4,7 @@ import react from '@vitejs/plugin-react'
 import mkcert from 'vite-plugin-mkcert'
 import fs from 'fs';
 import path from 'path';
+import {api_proxy_addr, img_proxy_addr, dest_root} from "./target_config"
 
 
 export default defineConfig({
@@ -18,8 +19,8 @@ export default defineConfig({
       manifest: {
         name: 'История Живописи',
         short_name: 'Живопись',
-        start_url: "/artwork-frontend",
-        scope: "/artwork-frontend",
+        start_url: dest_root,
+        scope: dest_root,
         display: 'standalone',
         background_color: '#2B1E11', 
         theme_color: '#A26907', 
@@ -40,8 +41,9 @@ export default defineConfig({
       },
     }),
   ],
-  base: '/artwork-frontend',
+  base: dest_root,
   server: {
+    host: true,
     port: 3000,
     https: {
       key: fs.readFileSync(path.resolve(__dirname, 'cert.key')), 
@@ -49,12 +51,12 @@ export default defineConfig({
     },
     proxy: {
       '/api': {
-        target: 'http://192.168.0.106:8000', 
+        target: api_proxy_addr, 
         changeOrigin: true, 
         rewrite: (path) => path.replace(/^\/api/, ''), 
       },
       '/web-img': {
-        target: 'http://192.168.0.106:9000', 
+        target: img_proxy_addr, 
         changeOrigin: true,
         secure: false, 
       },

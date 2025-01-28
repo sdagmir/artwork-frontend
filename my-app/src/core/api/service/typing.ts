@@ -1,5 +1,5 @@
 export interface IPaintingDetail {
-    id: number;
+    pk: number;
     title: string;
     img_path: string;
     short_description: string;
