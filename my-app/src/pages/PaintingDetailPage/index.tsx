@@ -9,24 +9,25 @@ import { Breadcrumbs } from "../../components/BreadCrumbs";
 import placeholderImage from "/images/image_placeholder.jpg";
 
 export const PaintingDetailPage: FC = () => {
-    const { id } = useParams();
+    const { pk } = useParams();
+    console.log("Extracted pk:", pk);
     const [paintingDetailData, setPaintingDetailData] = useState<IPaintingDetail | null>(null);
 
     useEffect(() => {
-        if (id) {
-            getPaintingById(id)
+        if (pk) {
+            getPaintingById(pk)
                 .then((data) => {
                     console.log("Полученные данные:", data);
                     setPaintingDetailData(data);
                 })
                 .catch(() => {
                     const painting = PAINTINGS_LIST_MOCK.find(
-                        (element) => element.id === Number(id)
+                        (element) => element.pk === Number(pk)
                     );
                     setPaintingDetailData(painting || null);
                 });
         }
-    }, [id]);
+    }, [pk]);
 
     if (!paintingDetailData) {
         return (

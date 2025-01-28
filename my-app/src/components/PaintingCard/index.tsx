@@ -8,7 +8,7 @@ import placeholderImage from "/images/image_placeholder.jpg";
 export const PaintingCard: FC<IPaintingProps> = (paintingCard: IPaintingProps) => {
   return (
     <Card className="provider-card w-100 rounded-4 shadow-sm" style={{ overflow: "hidden" }}>
-      <Link to={`/paintings/${paintingCard.id}`} style={{ textDecoration: "none" }}>
+      <Link to={`/paintings/${paintingCard.pk}`} style={{ textDecoration: "none" }}>
         <Card.Img
           variant="top"
           src={paintingCard.img_path}

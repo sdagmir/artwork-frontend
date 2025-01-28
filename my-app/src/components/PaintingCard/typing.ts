@@ -1,5 +1,5 @@
 export interface IPaintingProps {
-    id: number;
+    pk: number;
     title: string;
     short_description: string;
     img_path: string;

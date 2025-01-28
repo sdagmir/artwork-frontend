@@ -47,8 +47,8 @@ export const PaintingsPage: FC = () => {
         </div>
         <Row xs={1} sm={1} lg={3} className="g-4 justify-content-start">
           {paintingsList.map((paintingDetail) => (
-            <Col key={paintingDetail.id} className="d-flex align-items-stretch">
-              <PaintingCard key={paintingDetail.id} {...paintingDetail} />
+            <Col key={paintingDetail.pk} className="d-flex align-items-stretch">
+              <PaintingCard key={paintingDetail.pk} {...paintingDetail} />
             </Col>
           ))}
         </Row>

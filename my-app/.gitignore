@@ -15,6 +15,7 @@ ca.crt
 ca.key
 cert.crt
 cert.key
+src-tauri
 
 # Editor directories and files
 .vscode/*
