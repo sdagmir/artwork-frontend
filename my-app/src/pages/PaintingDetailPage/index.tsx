@@ -7,7 +7,7 @@ import { getPaintingById } from "../../core/api/service";
 import { paintingList as PAINTINGS_LIST_MOCK } from "../../core/mock/chemicalElementList";
 import { Breadcrumbs } from "../../components/BreadCrumbs";
 import placeholderImage from "/images/image_placeholder.jpg";
-import { dest_img } from "../../../target_config";
+import { dest_img, target_tauri } from "../../../target_config";
 
 export const PaintingDetailPage: FC = () => {
     const { pk } = useParams();
@@ -37,6 +37,10 @@ export const PaintingDetailPage: FC = () => {
         );
     }
 
+    const imagePath = target_tauri
+    ? `${dest_img}${paintingDetailData.img_path}` 
+    : paintingDetailData.img_path || placeholderImage;
+
     return (
         <>
             <Navbar />
@@ -65,7 +69,7 @@ export const PaintingDetailPage: FC = () => {
                 >
                     <Card.Img
                         variant="top"
-                        src={(dest_img + paintingDetailData.img_path) || placeholderImage}
+                        src={imagePath}
                         style={{
                             width: "100%",
                             height: "auto",

@@ -15,7 +15,7 @@ export const AppRoutes = () => {
             element: <PaintingsPage />,
         },
         {
-            path: "paintings/:id",
+            path: "paintings/:pk",
             element: <PaintingDetailsPage />,
         },
     ];
