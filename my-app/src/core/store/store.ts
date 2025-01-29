@@ -1,9 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
-import searchSlice from './slices/searchSlice';
+import appReducer from './slices/appSlice.ts';
+import userReducer from './slices/userSlice.ts';
+import expertiseReducer from './slices/expertiseSlice.ts';
 
 export const store = configureStore({
   reducer: {
-    search: searchSlice,
+    app: appReducer,
+    user: userReducer,
+    expertise: expertiseReducer
   },
 });
 

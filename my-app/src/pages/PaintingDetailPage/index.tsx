@@ -1,35 +1,14 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { Navbar } from "../../components/Navbar";
 import { Button, Card, Container } from "react-bootstrap";
-import { useParams } from "react-router-dom";
-import { IPaintingDetail } from "../../core/api/service/typing";
-import { getPaintingById } from "../../core/api/service";
-import { paintingList as PAINTINGS_LIST_MOCK } from "../../core/mock/chemicalElementList";
+import { usePaintingPage } from "./usePaintingDetailPage";
 import { Breadcrumbs } from "../../components/BreadCrumbs";
 import placeholderImage from "/images/image_placeholder.jpg";
 
 export const PaintingDetailPage: FC = () => {
-    const { pk } = useParams();
-    console.log("Extracted pk:", pk);
-    const [paintingDetailData, setPaintingDetailData] = useState<IPaintingDetail | null>(null);
+    const { paintingDetail, handleAddToCart } = usePaintingPage();
 
-    useEffect(() => {
-        if (pk) {
-            getPaintingById(pk)
-                .then((data) => {
-                    console.log("Полученные данные:", data);
-                    setPaintingDetailData(data);
-                })
-                .catch(() => {
-                    const painting = PAINTINGS_LIST_MOCK.find(
-                        (element) => element.pk === Number(pk)
-                    );
-                    setPaintingDetailData(painting || null);
-                });
-        }
-    }, [pk]);
-
-    if (!paintingDetailData) {
+    if (!paintingDetail) {
         return (
             <>
                 <Navbar />
@@ -48,7 +27,7 @@ export const PaintingDetailPage: FC = () => {
                             link: "/paintings",
                         },
                     ]}
-                    endItem={paintingDetailData.title}
+                    endItem={paintingDetail.title}
                 />
             </Container>
 
@@ -65,7 +44,7 @@ export const PaintingDetailPage: FC = () => {
                 >
                     <Card.Img
                         variant="top"
-                        src={paintingDetailData.img_path}
+                        src={paintingDetail.img_path || placeholderImage}
                         style={{
                             width: "100%",
                             height: "auto",
@@ -84,7 +63,7 @@ export const PaintingDetailPage: FC = () => {
                                 fontSize: "1.8rem",
                             }}
                         >
-                            {paintingDetailData.title}
+                            {paintingDetail.title}
                         </Card.Title>
                         <Card.Text
                             className="fw-medium mb-4 text-center text-md-start"
@@ -94,18 +73,19 @@ export const PaintingDetailPage: FC = () => {
                                 lineHeight: "1.6",
                             }}
                             dangerouslySetInnerHTML={{
-                                __html: paintingDetailData.description,
+                                __html: paintingDetail.description || "",
                             }}
                         ></Card.Text>
                         <div className="mt-auto d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
                             <Button
                                 className="btn-lg w-100 w-md-50"
                                 style={{
-                                    transition: "transform 0.3s ease, background-color 0.3s ease",
+                                    transition: "transform 0.3s ease, backgroundColor: 0.3s ease",
                                     backgroundColor: "#A26907",
                                     borderColor: "#A26907",
                                     color: "#ffffff",
                                 }}
+                                onClick={handleAddToCart}
                                 onMouseEnter={(e) =>
                                     (e.currentTarget.style.backgroundColor = "#824F23")
                                 }

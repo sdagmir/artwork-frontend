@@ -4,17 +4,17 @@ import { Cart } from '../../components/Cart';
 import { PaintingCard } from '../../components/PaintingCard';
 import { FC } from 'react';
 import { Breadcrumbs } from '../../components/BreadCrumbs';
-import { useChemicalCatalogPage } from './usePaintingsPage';
+import { usePaintingsPage } from './usePaintingsPage';
 
 export const PaintingsPage: FC = () => {
   const {
-    paintingsList,
+    paintingList,
     expertiseId,
     itemsInCart,
-    searchTerm,
+    searchTitle,
     handleSearchPaintingsClick,
     handleSearchTitleChange,
-  } = useChemicalCatalogPage();
+  } = usePaintingsPage();
 
   return (
     <>
@@ -22,7 +22,7 @@ export const PaintingsPage: FC = () => {
       <Container className="pb-4 d-flex flex-column mx-auto" style={{ maxWidth: '1200px' }}>
         <Container className="d-flex flex-row justify-content-between mb-5 mt-5">
           <Breadcrumbs endItem="Каталог" />
-          <Cart paintingExpertiseId={expertiseId} itemsInCart={itemsInCart} />
+          <Cart paintingExpertiseId={expertiseId ? expertiseId : 0} itemsInCart={itemsInCart} />
         </Container>
         <div className="d-flex flex-row gap-3 mb-4 col-8 align-self-center">
           <div className="flex-grow-1">
@@ -32,7 +32,7 @@ export const PaintingsPage: FC = () => {
               onChange={handleSearchTitleChange}
               placeholder="Поиск картины"
               aria-label="Поиск"
-              value={searchTerm}
+              value={searchTitle}
               style={{ width: '100%' }}
             />
           </div>
@@ -46,7 +46,7 @@ export const PaintingsPage: FC = () => {
           </div>
         </div>
         <Row xs={1} sm={1} lg={3} className="g-4 justify-content-start">
-          {paintingsList.map((paintingDetail) => (
+          {paintingList.map((paintingDetail) => (
             <Col key={paintingDetail.pk} className="d-flex align-items-stretch">
               <PaintingCard key={paintingDetail.pk} {...paintingDetail} />
             </Col>

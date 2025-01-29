@@ -1,57 +1,35 @@
 import { useEffect, useState } from "react";
-import { ChangeEvent } from "../../App.typing.tsx";
-import { paintingList as PAINTINGS_LIST_MOCK} from "../../core/mock/chemicalElementList.ts";
-import { IPaintingDetail } from "../../core/api/service/typing.ts";
-import { getPaintingsList } from "../../core/api/service/index.ts";
-import { useAppSelector, useAppDispatch } from '../../core/store/hooks.ts';
-import { setSearchTerm } from '../../core/store/slices/searchSlice.ts';
+import { ChangeEvent } from "../../App.typing";
+import { useAppSelector, useAppDispatch } from "../../core/store/hooks";
+import { setSearchTitle, fetchPaintings } from "../../core/store/slices/appSlice";
 
-export const useChemicalCatalogPage = () => {
+export const usePaintingsPage = () => {
     const dispatch = useAppDispatch();
-    const { searchTerm } = useAppSelector((state) => state.search);
-    const [paintingsList, setPaintingsList] = useState<IPaintingDetail[]>([])
-    const [expertiseId, setExpertiseId] = useState<number>(0);
-    const [itemsInCart, setItemsInCart] = useState<number>(0);
+    const { searchTitle, paintingList, expertiseId, itemsInCart} = useAppSelector((state) => state.app);
 
-    const fetchPaintings = (title?: string) => {
-        getPaintingsList(title)
-        .then((data) => {
-            setPaintingsList(data.paintings);
-            setExpertiseId(data.expertise_id);
-            setItemsInCart(data.count)
-        })
-        .catch(() => {
-            let filteredPaintings = PAINTINGS_LIST_MOCK;
-            if (title && title !== undefined) {
-                filteredPaintings = filteredPaintings.filter((paintingDetail: IPaintingDetail) =>
-                    paintingDetail.title.toLowerCase().includes(title.toLowerCase())
-                );
-            }
-            setPaintingsList(filteredPaintings);
-            setExpertiseId(0);
-            setItemsInCart(0);
-        });
-    };
+    const [searchTrigger, setSearchTrigger] = useState(false); // Триггер для обновления списка при поиске
 
-    const handleSearchPaintingsClick = () => {
-        fetchPaintings(searchTerm);
-    };
-
+    // Обработчик изменения поискового запроса
     const handleSearchTitleChange = (e: ChangeEvent) => {
-        const newSearchTerm = e.target.value;
-        dispatch(setSearchTerm(newSearchTerm));
+        dispatch(setSearchTitle(e.target.value));
     };
 
+    // Обработчик кнопки поиска
+    const handleSearchPaintingsClick = () => {
+        setSearchTrigger((prev) => !prev); // Обновляем состояние для триггера useEffect
+    };
+
+    // Загружаем картины при изменении поискового запроса
     useEffect(() => {
-        fetchPaintings(searchTerm);
-    }, []);
+        dispatch(fetchPaintings({ title: searchTitle })).unwrap();
+    }, [dispatch, searchTrigger]);
 
     return {
-        paintingsList,
+        paintingList,
         expertiseId,
         itemsInCart,
-        searchTerm,
-        handleSearchTitleChange,
+        searchTitle,
         handleSearchPaintingsClick,
+        handleSearchTitleChange,
     };
 };

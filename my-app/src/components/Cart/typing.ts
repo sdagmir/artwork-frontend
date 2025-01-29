@@ -1,4 +1,4 @@
 export interface ICartProps {
-    paintingExpertiseId: number;
+    paintingExpertiseId: number | string;
     itemsInCart: number
 }

@@ -1,10 +1,21 @@
 import { FC } from "react";
 import { Navbar as NavbarComp, Container, Nav } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../core/store/hooks";
+import { logoutUser } from "../../core/store/slices/userSlice";
 import "./Navbar.css";
 import logoImage from "/icon.png";
 
 export const Navbar: FC = () => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { isAuth, username } = useAppSelector((state) => state.user);
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    navigate("/login");
+  };
+
   return (
     <NavbarComp expand="lg" className="navbar-bg border-bottom border-secondary border-2" sticky="top">
       <Container fluid>
@@ -25,9 +36,35 @@ export const Navbar: FC = () => {
         {/* Навигационные элементы */}
         <NavbarComp.Collapse id="navbar-content">
           <Nav className="ms-auto nav-link-container">
+            {/* Общая навигация */}
             <Link to="/paintings" className="nav-link-services">
               Картины для экспертизы
             </Link>
+
+        {/* Навигация для авторизованных пользователей */}
+          {isAuth && (
+            <>
+              {/* <Link to="/expertise-list" className="nav-link-services">
+                Список экспертизы
+              </Link> */}
+              <Link to="/user-account" className="nav-link-services">
+                {`Аккаунт (${username})`}
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="nav-link-services logout-button"
+              >
+                Выйти
+              </button>
+            </>
+          )}
+
+          {/* Навигация для гостей */}
+          {!isAuth && (
+            <Link to="/login" className="nav-link-services">
+              Войти
+            </Link>
+          )}
           </Nav>
         </NavbarComp.Collapse>
       </Container>

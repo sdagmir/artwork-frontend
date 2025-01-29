@@ -81,3 +81,25 @@
     font-size: 0.8rem;
   }
 }
+
+.logout-button {
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #a26907; /* Делаем цвет таким же, как у других ссылок */
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease;
+  padding: 0;
+}
+
+.logout-button:hover {
+  text-decoration: underline;
+  transform: scale(1.1);
+  color: #d48b39; /* Меняем цвет при наведении, как у других ссылок */
+}
+
+.logout-button:focus {
+  outline: none;
+  box-shadow: none; /* Убираем выделение */
+}
