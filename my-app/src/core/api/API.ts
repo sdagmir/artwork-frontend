@@ -45,6 +45,27 @@ export interface CreateExpertiseByIdResponse {
   paintings: ExpertiseComponent[];
 }
 
+export interface CreatedExpertise {
+  /** ID экспертизы */
+  pk: number;
+  /** Статус экспертизы */
+  status: 1 | 2 | 3 | 4 | 5;
+  /** Пользователь, создавший экспертизу */
+  user: string;
+  /** Дата создания экспертизы */
+  date_created: string;
+  /** Автор экспертизы */
+  author: string;
+  /** Дата формирования экспертизы */
+  date_formation?: string | null;
+  /** Дата завершения экспертизы */
+  date_completion?: string | null;
+  /** ID менеджера, назначенного на экспертизу */
+  manager: number;
+  /** Список картин, входящих в экспертизу */
+  result: boolean;
+}
+
 export interface Painting {
   /** ID */
   pk?: number;
@@ -272,10 +293,21 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/painting_expertise
      * @secure
      */
-    paintingExpertiseList: (params: RequestParams = {}) =>
-      this.request<void, any>({
+    paintingExpertiseList: (
+      query?: {
+        /** Фильтр по статусу */
+        status?: string;
+        /** Начало периода формирования (дата) */
+        formation_start?: string;
+        /** Конец периода формирования (дата) */
+        formation_end?: string;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<CreatedExpertise, any>({
         path: `/painting_expertise`,
         method: "GET",
+        query: query,
         secure: true,
         ...params,
       }),

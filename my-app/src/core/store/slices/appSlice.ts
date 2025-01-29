@@ -7,6 +7,9 @@ import { paintingList as PAINTINGS_LIST_MOCK } from "../../mock/chemicalElementL
 interface PaintingCatalogState {
     searchTitle: string; 
     paintingList: IPaintingDetail[]; 
+    filterExpertiseStatus?: string;
+    filterExpertiseStartDate?: string;
+    filterExpertiseEndDate?: string;
     expertiseId: string | null; 
     itemsInCart: number; 
     isLoading: boolean; 
@@ -16,6 +19,9 @@ interface PaintingCatalogState {
 const initialState: PaintingCatalogState = {
     searchTitle: "",
     paintingList: [],
+    filterExpertiseStatus: undefined,
+    filterExpertiseStartDate: undefined,
+    filterExpertiseEndDate: undefined,
     expertiseId: null,
     itemsInCart: 0,
     isLoading: false,
@@ -45,6 +51,15 @@ const appSlice = createSlice({
     reducers: {
         setSearchTitle: (state, action: PayloadAction<string>) => {
             state.searchTitle = action.payload;
+        },
+        setFilterExpertiseStatus: (state, action: PayloadAction<string>) =>{
+            state.filterExpertiseStatus = action.payload;
+        },
+        setFilterExpertiseStartDate: (state, action: PayloadAction<string>) =>{
+            state.filterExpertiseStartDate = action.payload;
+        },
+        setFilterExpertiseEndDate: (state, action: PayloadAction<string>) =>{
+            state.filterExpertiseEndDate = action.payload;
         },
         incrementItemsInCart: (state) => {
             state.itemsInCart += 1;
@@ -89,6 +104,9 @@ export const {
     incrementItemsInCart,
     decrementItemsInCart,
     setExpertiseId,
+    setFilterExpertiseStatus,
+    setFilterExpertiseEndDate,
+    setFilterExpertiseStartDate,
 } = appSlice.actions;
 
 export default appSlice.reducer;
