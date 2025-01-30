@@ -7,6 +7,10 @@ import { UserAccountPage } from "./pages/UserAccountPage";
 import { RegisterPage } from "./pages/RegisterPage";
 import { ExpertisePage } from "./pages/ExpertisePage";
 import { ExpertiseListPage } from "./pages/ExpertiseListPage";
+import { PaintingsListPage } from "./pages/PaintingsListPage";
+import { CreatePaintingPage } from "./pages/CreatePaintingPage";
+import { ForbiddenPage } from "./pages/ForbiddenPage";
+import { NotFoundPage } from "./pages/NotFoundPage";
 
 
 export const AppRoutes = () => {
@@ -42,6 +46,22 @@ export const AppRoutes = () => {
         {
             path: "expertises-list",
             element: <ExpertiseListPage />,
+        },
+        {
+            path: "paintings-list",
+            element: <PaintingsListPage />,
+        },
+        {
+            path: "create-painting",
+            element: <CreatePaintingPage />,
+        },
+        {
+            path: "/forbidden",
+            element: <ForbiddenPage />,
+        },
+        {
+            path: "*",
+            element: <NotFoundPage />,
         },
     ];
     const routeResult = useRoutes(routes);

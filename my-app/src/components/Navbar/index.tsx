@@ -47,6 +47,11 @@ export const Navbar: FC = () => {
               <Link to="/expertises-list" className="nav-link-services">
                 Список экспертиз
               </Link>
+              {username === "admin" && (
+                  <Link to="/paintings-list" className="nav-link-services">
+                    Список картин
+                  </Link>
+                )}
               <Link to="/user-account" className="nav-link-services">
                 {`Аккаунт (${username})`}
               </Link>

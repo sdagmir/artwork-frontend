@@ -501,13 +501,16 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request POST:/paintings/
      * @secure
      */
-    paintingsCreate: (params: RequestParams = {}) =>
+    paintingsCreate: (data: { title: string; short_description: string; description: string; img_path: string }, params: RequestParams = {}) =>
       this.request<void, any>({
         path: `/paintings/`,
         method: "POST",
+        body: data,
         secure: true,
+        type: ContentType.Json,
         ...params,
       }),
+    
 
     /**
      * @description Класс CRUD операций над картиной

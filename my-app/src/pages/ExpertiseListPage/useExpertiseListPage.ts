@@ -45,8 +45,14 @@ export const useExpertiseListPage = () => {
 
   // Вызываем загрузку при изменении фильтров
   useEffect(() => {
-    handleFilterClick();
-  }, [filterExpertiseStatus, filterExpertiseStartDate, filterExpertiseEndDate]);
+    handleFilterClick(); 
+
+    const intervalId = setInterval(() => {
+        handleFilterClick(); 
+    }, 3000);
+
+    return () => clearInterval(intervalId);
+}, [filterExpertiseStatus, filterExpertiseStartDate, filterExpertiseEndDate]);
 
   const filterProps: IExpertiseFilterProps = {
     selectedStatus: filterExpertiseStatus,

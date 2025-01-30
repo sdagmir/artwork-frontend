@@ -1,9 +1,11 @@
+import { useEffect } from "react";
 import { Navbar } from "../../components/Navbar";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { PaintingCardInExpertise } from "../../components/PaintingCardInExpertise";
 import { useExpertisePage } from "./useExpertisePage";
 import { Breadcrumbs } from "../../components/BreadCrumbs";
 import { useAppSelector } from "../../core/store/hooks";
+import { useNavigate } from "react-router-dom";
 
 export const ExpertisePage: React.FC = () => {
   const {
@@ -20,6 +22,14 @@ export const ExpertisePage: React.FC = () => {
   } = useExpertisePage();
 
   const draftExpertiseId = useAppSelector((state) => state.app.expertiseId); // ID черновика из глобального состояния
+  const navigate = useNavigate();
+  const { isAuth } = useAppSelector((state) => state.user);
+
+  useEffect(() => {
+    if (!isAuth) {
+      navigate("/forbidden");
+    }
+  }, [isAuth, navigate]);
 
   // Определяем режим редактирования
   const isEditMode = expertiseId === String(draftExpertiseId);
