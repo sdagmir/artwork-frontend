@@ -1,0 +1,38 @@
+.status-icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+  }
+  
+  /* Обертка для всплывающего QR-кода */
+  .qr-hover-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Сам QR-код скрыт по умолчанию */
+  .qr-hover {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.5);
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    text-align: center;
+  }
+  
+  .qr-code {
+    width: 100px;
+    height: 100px;
+  }
+  
+  /* Показываем QR-код при наведении */
+  .qr-hover-wrapper:hover .qr-hover {
+    display: block;
+  }
+  

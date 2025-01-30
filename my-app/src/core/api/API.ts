@@ -304,7 +304,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       },
       params: RequestParams = {},
     ) =>
-      this.request<CreatedExpertise, any>({
+      this.request<CreatedExpertise[], any>({
         path: `/painting_expertise`,
         method: "GET",
         query: query,

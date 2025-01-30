@@ -44,9 +44,9 @@ export const Navbar: FC = () => {
         {/* Навигация для авторизованных пользователей */}
           {isAuth && (
             <>
-              {/* <Link to="/expertise-list" className="nav-link-services">
-                Список экспертизы
-              </Link> */}
+              <Link to="/expertises-list" className="nav-link-services">
+                Список экспертиз
+              </Link>
               <Link to="/user-account" className="nav-link-services">
                 {`Аккаунт (${username})`}
               </Link>

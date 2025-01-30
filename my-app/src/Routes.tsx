@@ -6,6 +6,7 @@ import { LoginPage } from "./pages/LoginPage";
 import { UserAccountPage } from "./pages/UserAccountPage";
 import { RegisterPage } from "./pages/RegisterPage";
 import { ExpertisePage } from "./pages/ExpertisePage";
+import { ExpertiseListPage } from "./pages/ExpertiseListPage";
 
 
 export const AppRoutes = () => {
@@ -37,6 +38,10 @@ export const AppRoutes = () => {
         {
             path: "expertise/:expertiseId",
             element: <ExpertisePage />,
+        },
+        {
+            path: "expertises-list",
+            element: <ExpertiseListPage />,
         },
     ];
     const routeResult = useRoutes(routes);

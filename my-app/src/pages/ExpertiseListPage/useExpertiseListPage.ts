@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useAppSelector, useAppDispatch } from "../../core/store/hooks";
 import { setFilterExpertiseStatus, setFilterExpertiseStartDate, setFilterExpertiseEndDate } from "../../core/store/slices/appSlice";
 import { ChangeEvent } from "../../App.typing";
-import { IExpertiseTableProps, IExpertiseTableRow } from "../../components/ExpertiseListTable/typing";
-import { IExpertiseFilterProps } from "../../components/FiltersForExpertises/typing";
+import { IExpertiseTableProps } from "../../components/ExpertiseListTable/typing";
+import { IExpertiseFilterProps } from "../../components/FiltersForExpertise/typing";
 import { api } from "../../core/api";
 
 export const useExpertiseListPage = () => {
@@ -31,8 +31,8 @@ export const useExpertiseListPage = () => {
   const handleFilterClick = () => {
     api.paintingExpertise.paintingExpertiseList({
       status: mapStringToOptQueryParam(filterExpertiseStatus),
-      creation_start: mapStringToOptQueryParam(filterExpertiseStartDate),
-      completion_end: mapStringToOptQueryParam(filterExpertiseEndDate),
+      formation_start: mapStringToOptQueryParam(filterExpertiseStartDate),
+      formation_end: mapStringToOptQueryParam(filterExpertiseEndDate),
     })
       .then((response) => {
         setTableProps(mapBackendResultToTableData(response.data));
@@ -78,7 +78,8 @@ function mapBackendResultToTableData(expertises: any[]): IExpertiseTableProps {
       status: mapStatusToTable(expertise.status),
       creationDate: convertDatetimeToDDMMYYYY(expertise.date_created),
       completionDate: convertDatetimeToDDMMYYYY(expertise.date_completion),
-      paintingsCount: expertise.count || 0,
+      result: expertise.result || false,
+      qr: expertise.qr
     })),
   };
 }
@@ -86,14 +87,12 @@ function mapBackendResultToTableData(expertises: any[]): IExpertiseTableProps {
 // Функция преобразования статусов
 function mapStatusToTable(status?: number): string {
   switch (status) {
-    case 1:
-      return "Черновик";
     case 2:
-      return "Формируется";
-    case 3:
-      return "Готово";
+      return "Сформирована";
     case 4:
-      return "Отклонено";
+      return "Принята";
+    case 5:
+      return "Отклонена";
     default:
       return "Неизвестно";
   }
